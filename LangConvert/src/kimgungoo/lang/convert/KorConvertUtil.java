@@ -10,7 +10,8 @@ public class KorConvertUtil {
 	enum CodeType{chosung, jungsung, jongsung}
 	
 	public static String toKOR(String eng) {		
-		if (eng == null)	return eng; 
+		if (eng == null)	
+			return eng; 
 			
 		try {
 			return engToKor(eng);
@@ -18,7 +19,8 @@ public class KorConvertUtil {
 		catch (Exception e) {
 			try {
 				return engToKor(turnSpellCase(eng));
-			} catch (Exception e2) {
+			} 
+			catch (Exception e2) {
 				return eng;
 			}			
 		}
@@ -41,7 +43,8 @@ public class KorConvertUtil {
 			
 			if (t == 1) {
 				result.append(String.valueOf(c).toLowerCase());
-			} else if (t == 2) {
+			} 
+			else if (t == 2) {
 				result.append(String.valueOf(c).toUpperCase());
 			}
 		}
@@ -124,22 +127,24 @@ public class KorConvertUtil {
 		 // 초성
 		 String init = "rRseEfaqQtTdwWczxvg";
 		 // 중성
-		 String[] mid = {"k","o","i","O","j","p","u","P","h","hk", "ho","hl","y","n","nj","np", "nl", "b", "m", "ml", "l"};
+		 String[] mid = {"k","o","i","O","j","p","u","P","h","hk", "ho",
+				 "hl","y","n","nj","np", "nl", "b", "m", "ml", "l"};
 		 // 종성
-		 String[] fin = {"r", "R", "rt", "s", "sw", "sg", "e", "f", "fr", "fa", "fq", "ft", "fx", "fv", "fg", "a", "q", "qt", "t", "T", "d", "w", "c", "z", "x", "v", "g"};
+		 String[] fin = {"r", "R", "rt", "s", "sw", "sg", "e", "f", "fr", 
+				 "fa", "fq", "ft", "fx", "fv", "fg", "a", "q", "qt", 
+				 "t", "T", "d", "w", "c", "z", "x", "v", "g"};
 		
 		 switch(type) {
 			 case chosung :
 				 int index = init.indexOf(c);
 				 
-				 if( index != -1 )
-				 {
+				 if( index != -1 ) {
 					 return index * 21 * 28;
 				 }
 				 break;
+				 
 			 case jungsung :		
-				 for(int i = 0; i < mid.length; i++)
-				 {
+				 for(int i = 0; i < mid.length; i++) {
 					 if(mid[i].equals(c))
 					 {
 						return i * 28;
@@ -147,15 +152,16 @@ public class KorConvertUtil {
 				 }
 				 
 				 break;
+				 
 			 case jongsung :
-				 for(int i = 0; i < fin.length; i++)
-				 {
+				 for(int i = 0; i < fin.length; i++) {
 					 if(fin[i].equals(c))
 					 {
 						 return i + 1;
 					 }
 				 }
 				 break;
+				 
 			 default:
 				 System.out.println("잘못된 타입 입니다");
 		 }
@@ -184,9 +190,10 @@ public class KorConvertUtil {
 		 else {
 			 result = getCode(CodeType.jungsung, eng.substring(i, i+2));
 			 
-			 if(result != -1){
+			 if (result != -1) {
 				 return result;
-			 }else{
+			 }
+			 else {
 				 return -1;
 			 }
 		 }
