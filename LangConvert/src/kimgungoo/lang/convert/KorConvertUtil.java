@@ -9,13 +9,13 @@ package kimgungoo.lang.convert;
 public class KorConvertUtil {
 	enum CodeType{chosung, jungsung, jongsung}
 	
-	public static String toKOR(String eng)
-	{		
+	public static String toKOR(String eng) {		
 		if (eng == null)	return eng; 
 			
 		try {
 			return engToKor(eng);
-		} catch (Exception e) {
+		} 
+		catch (Exception e) {
 			try {
 				return engToKor(turnSpellCase(eng));
 			} catch (Exception e2) {
@@ -29,8 +29,7 @@ public class KorConvertUtil {
 	 * @param eng
 	 * @return
 	 */
-	private static String turnSpellCase(String eng)
-	{
+	private static String turnSpellCase(String eng) {
 		StringBuffer result = new StringBuffer();
 		char c;
 		int t;
@@ -50,19 +49,16 @@ public class KorConvertUtil {
 		return result.toString();
 	}
 	
-	private static String engToKor(String eng) throws Exception
-	{
+	private static String engToKor(String eng) throws Exception {
 		StringBuffer sb = new StringBuffer();
 		int initialCode = 0, medialCode = 0, finalCode = 0;
 		int tempMedialCode, tempFinalCode;
 		
-		for(int i = 0; i < eng.length(); i++)
-		{
+		for (int i = 0; i < eng.length(); i++) {
 			 // 초성코드 추출
 			 initialCode = getCode(CodeType.chosung, eng.substring(i, i+1));
 			 
-			 if (initialCode == -1) 
-			 {
+			 if (initialCode == -1) {
 				throw new Exception("cannot make Korean word.");
 			 }
 			 
@@ -71,15 +67,14 @@ public class KorConvertUtil {
 			 // 중성코드 추출
 			 tempMedialCode = getDoubleMedial(i, eng); // 두 자로 이루어진 중성코드 추출
 			 
-			 if(tempMedialCode != -1){ 
+			 if (tempMedialCode != -1) { 
 				 medialCode = tempMedialCode;
 				 i += 2;
 			 }
 			 else {// 없다면,
 				 medialCode = getSingleMedial(i, eng); // 한 자로 이루어진 중성코드 추출
 				 
-				 if (medialCode == -1) 
-				 {
+				 if (medialCode == -1) {
 					throw new Exception("cannot make Korean word.");
 				 }
 				 
@@ -88,14 +83,12 @@ public class KorConvertUtil {
 			 
 			 // 종성코드 추출
 			tempFinalCode = getDoubleFinal(i, eng);// 두 자로 이루어진 종성코드 추출
-			if(tempFinalCode != -1)
-			{
+			if(tempFinalCode != -1) {
 				finalCode = tempFinalCode;
 			
 				// 그 다음의 중성 문자에 대한 코드를 추출한다. 
 				tempMedialCode = getSingleMedial(i+2, eng);
-				if( tempMedialCode != -1 )
-				{// 코드 값이 있을 경우 
+				if( tempMedialCode != -1 ) {// 코드 값이 있을 경우 
 					finalCode = getSingleFinal(i, eng); // 종성 코드 값을 저장한다.
 				}
 				else {
@@ -127,8 +120,7 @@ public class KorConvertUtil {
 	 * @param type 초성 : chosung, 중성 : jungsung, 종성 : jongsung 구분 
 	 * @param char 해당 문자 
 	 */ 
-	 private static int getCode(CodeType type, String c)
-	 {
+	 private static int getCode(CodeType type, String c) {
 		 // 초성
 		 String init = "rRseEfaqQtTdwWczxvg";
 		 // 중성
@@ -136,8 +128,7 @@ public class KorConvertUtil {
 		 // 종성
 		 String[] fin = {"r", "R", "rt", "s", "sw", "sg", "e", "f", "fr", "fa", "fq", "ft", "fx", "fv", "fg", "a", "q", "qt", "t", "T", "d", "w", "c", "z", "x", "v", "g"};
 		
-		 switch(type)
-		 {
+		 switch(type) {
 			 case chosung :
 				 int index = init.indexOf(c);
 				 
@@ -174,10 +165,8 @@ public class KorConvertUtil {
 	 
 	 // 한 자로 된 중성값을 리턴한다
 	 // 인덱스를 벗어낫다면 -1을 리턴
-	 private static int getSingleMedial(int i, String eng)
-	 {
-		 if((i+1) <= eng.length())
-		 {
+	 private static int getSingleMedial(int i, String eng) {
+		 if((i+1) <= eng.length()) {
 			 return getCode(CodeType.jungsung, eng.substring(i, i+1));
 		 }
 		 else {
@@ -187,11 +176,9 @@ public class KorConvertUtil {
 	 
 	 // 두 자로 된 중성을 체크하고, 있다면 값을 리턴한다.
 	 // 없으면 리턴값은 -1
-	 private static int getDoubleMedial(int i, String eng)
-	 {
+	 private static int getDoubleMedial(int i, String eng) {
 		 int result;
-		 if((i+2) > eng.length())
-		 {
+		 if((i+2) > eng.length()) {
 			 return -1;
 		 }
 		 else {
@@ -207,29 +194,23 @@ public class KorConvertUtil {
 	 
 	 // 한 자로된 종성값을 리턴한다
 	 // 인덱스를 벗어낫다면 -1을 리턴
-	 private static int getSingleFinal(int i, String eng)
-	 {
-		 if((i+1) <= eng.length()){
+	 private static int getSingleFinal(int i, String eng) {
+		 if ((i+1) <= eng.length()) {
 			 return getCode(CodeType.jongsung, eng.substring(i, i+1));
-		 }else{
+		 }
+		 else {
 			 return -1;
 		 }
 	}
 	 
 	 // 두 자로된 종성을 체크하고, 있다면 값을 리턴한다.
 	 // 없으면 리턴값은 -1
-	 private static int getDoubleFinal(int i, String eng)
-	 {
-		 if((i+2) > eng.length()){
+	 private static int getDoubleFinal(int i, String eng) {
+		 if ((i+2) > eng.length()) {
 			 return -1;
 		 } 
 		 else {
 			 return getCode(CodeType.jongsung, eng.substring(i, i+2));
 		 }
 	 }
-	 
-//	 public static void main(String[] a)
-//	 {
-//		 System.out.println(TransUtil.toKOR("ww"));
-//	 }
 }

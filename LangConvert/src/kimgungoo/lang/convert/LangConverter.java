@@ -16,18 +16,15 @@ public class LangConverter {
 	 * @param source
 	 * @return
 	 */
-	public String transLang(String source)
-	{		
-		if (source == null)	{
-			return null;		
-		}
+	public String transLang(String source) {		
+		if (source == null)
+			return null;
 		
 		StringBuffer result = new StringBuffer();		
 		int i, type = 0, before = 0, p = 0;
 		char ch;
 		
-		for(i = 0; i < source.length(); i++)
-		{
+		for (i = 0; i < source.length(); i++) {
 			ch = source.charAt(i);
 			type = Character.getType(ch);
 			
@@ -35,8 +32,7 @@ public class LangConverter {
 				type = 2;
 			}
 			
-			if (i != 0 && type != before) 
-			{				
+			if (i != 0 && type != before) {
 				result.append(transTerm(before, source.substring(p, i)));				
 				p = i;
 			}
@@ -56,8 +52,7 @@ public class LangConverter {
 	 * @param source
 	 * @return
 	 */
-	public String transLang(int transType, String source)
-	{
+	public String transLang(int transType, String source) {
 		if (source == null) return null;
 		
 		if (transType == WORD_TYPE_CHAR || transType == WORD_TYPE_MIXED) {
@@ -95,13 +90,11 @@ public class LangConverter {
 	 * @param str
 	 * @return
 	 */
-	private int analysisType(String str)
-	{
+	private int analysisType(String str) {
 		char ch;
 		int type;
 		byte chk = 0, before = 0;
-		for (int i = 0; i < str.length(); i++) 
-		{
+		for (int i = 0; i < str.length(); i++) {
 			ch = str.charAt(i);			
 			type = Character.getType(ch);			
 			
@@ -139,8 +132,7 @@ public class LangConverter {
 	 * @param value
 	 * @return
 	 */
-	protected String transTerm(int currentType, String value)
-	{
+	protected String transTerm(int currentType, String value) {
 		if (currentType == WORD_TYPE_KOR) {
 			return (WordUtil.hangulToJaso(value));
 		}
@@ -152,8 +144,7 @@ public class LangConverter {
 		}
 	}
 	
-	public static void main(String[] a)
-	{
+	public static void main(String[] a) {
 //		char[] temp = {'ㄱ', '맘', 'a', 'K'};
 //		
 //		System.out.println(Character.getType(temp[0]));
