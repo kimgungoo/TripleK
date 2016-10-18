@@ -2,8 +2,7 @@ package kimgungoo.lang.convert;
 
 /**
  * English(typos) -> Korean
- * ³×ÀÌ¹ö Áö½ÄÀÎ¿¡¼­ Ã£Àº ¼Ò½º.
- * ÇÑ±Ûº¯È¯½Ã ¸íÈ®ÇÑ ¹®±¸°¡ ¾ÈµÉ°æ¿ì ¿µ¹®±×´ë·Î ¸®ÅÏµÇµµ·Ï ¼öÁ¤ÇÔ.
+ * í•œê¸€ë³€í™˜ì‹œ ëª…í™•í•œ ë¬¸êµ¬ê°€ ì•ˆë ê²½ìš° ì˜ë¬¸ê·¸ëŒ€ë¡œ ë¦¬í„´ë˜ë„ë¡ ìˆ˜ì •í•¨.
  * @author kimgungoo
  *
  */
@@ -26,7 +25,7 @@ public class KorConvertUtil {
 	}
 	
 	/**
-	 * ´ë¼Ò¹®ÀÚ Ä¡È¯
+	 * ëŒ€ì†Œë¬¸ì ì¹˜í™˜
 	 * @param eng
 	 * @return
 	 */
@@ -59,7 +58,7 @@ public class KorConvertUtil {
 		
 		for(int i = 0; i < eng.length(); i++)
 		{
-			 // ÃÊ¼ºÄÚµå ÃßÃâ
+			 // ì´ˆì„±ì½”ë“œ ì¶”ì¶œ
 			 initialCode = getCode(CodeType.chosung, eng.substring(i, i+1));
 			 
 			 if (initialCode == -1) 
@@ -67,17 +66,17 @@ public class KorConvertUtil {
 				throw new Exception("cannot make Korean word.");
 			 }
 			 
-			 i++; // ´ÙÀ½¹®ÀÚ·Î
+			 i++; // ë‹¤ìŒë¬¸ìë¡œ
 			 
-			 // Áß¼ºÄÚµå ÃßÃâ
-			 tempMedialCode = getDoubleMedial(i, eng); // µÎ ÀÚ·Î ÀÌ·ç¾îÁø Áß¼ºÄÚµå ÃßÃâ
+			 // ì¤‘ì„±ì½”ë“œ ì¶”ì¶œ
+			 tempMedialCode = getDoubleMedial(i, eng); // ë‘ ìë¡œ ì´ë£¨ì–´ì§„ ì¤‘ì„±ì½”ë“œ ì¶”ì¶œ
 			 
 			 if(tempMedialCode != -1){ 
 				 medialCode = tempMedialCode;
 				 i += 2;
 			 }
-			 else {// ¾ø´Ù¸é,
-				 medialCode = getSingleMedial(i, eng); // ÇÑ ÀÚ·Î ÀÌ·ç¾îÁø Áß¼ºÄÚµå ÃßÃâ
+			 else {// ì—†ë‹¤ë©´,
+				 medialCode = getSingleMedial(i, eng); // í•œ ìë¡œ ì´ë£¨ì–´ì§„ ì¤‘ì„±ì½”ë“œ ì¶”ì¶œ
 				 
 				 if (medialCode == -1) 
 				 {
@@ -87,36 +86,36 @@ public class KorConvertUtil {
 				 i++;
 			 }
 			 
-			 // Á¾¼ºÄÚµå ÃßÃâ
-			tempFinalCode = getDoubleFinal(i, eng);// µÎ ÀÚ·Î ÀÌ·ç¾îÁø Á¾¼ºÄÚµå ÃßÃâ
+			 // ì¢…ì„±ì½”ë“œ ì¶”ì¶œ
+			tempFinalCode = getDoubleFinal(i, eng);// ë‘ ìë¡œ ì´ë£¨ì–´ì§„ ì¢…ì„±ì½”ë“œ ì¶”ì¶œ
 			if(tempFinalCode != -1)
 			{
 				finalCode = tempFinalCode;
 			
-				// ±× ´ÙÀ½ÀÇ Áß¼º ¹®ÀÚ¿¡ ´ëÇÑ ÄÚµå¸¦ ÃßÃâÇÑ´Ù. 
+				// ê·¸ ë‹¤ìŒì˜ ì¤‘ì„± ë¬¸ìì— ëŒ€í•œ ì½”ë“œë¥¼ ì¶”ì¶œí•œë‹¤. 
 				tempMedialCode = getSingleMedial(i+2, eng);
 				if( tempMedialCode != -1 )
-				{// ÄÚµå °ªÀÌ ÀÖÀ» °æ¿ì 
-					finalCode = getSingleFinal(i, eng); // Á¾¼º ÄÚµå °ªÀ» ÀúÀåÇÑ´Ù.
+				{// ì½”ë“œ ê°’ì´ ìˆì„ ê²½ìš° 
+					finalCode = getSingleFinal(i, eng); // ì¢…ì„± ì½”ë“œ ê°’ì„ ì €ì¥í•œë‹¤.
 				}
 				else {
 					i++;
 				}
 			}
-			else {// ÄÚµå °ªÀÌ ¾øÀ» °æ¿ì ,
-				tempMedialCode = getSingleMedial(i+1, eng);// ±× ´ÙÀ½ÀÇ Áß¼º ¹®ÀÚ¿¡ ´ëÇÑ ÄÚµå ÃßÃâ. 
-				if(tempMedialCode != -1){// ±× ´ÙÀ½¿¡ Áß¼º ¹®ÀÚ°¡ Á¸ÀçÇÒ °æ¿ì, 
-					finalCode = 0;// Á¾¼º ¹®ÀÚ´Â ¾øÀ½.
+			else {// ì½”ë“œ ê°’ì´ ì—†ì„ ê²½ìš° ,
+				tempMedialCode = getSingleMedial(i+1, eng);// ê·¸ ë‹¤ìŒì˜ ì¤‘ì„± ë¬¸ìì— ëŒ€í•œ ì½”ë“œ ì¶”ì¶œ. 
+				if(tempMedialCode != -1){// ê·¸ ë‹¤ìŒì— ì¤‘ì„± ë¬¸ìê°€ ì¡´ì¬í•  ê²½ìš°, 
+					finalCode = 0;// ì¢…ì„± ë¬¸ìëŠ” ì—†ìŒ.
 					i--; 
 				} 
 				else {
-					finalCode = getSingleFinal(i, eng); // Á¾¼º ¹®ÀÚ ÃßÃâ
+					finalCode = getSingleFinal(i, eng); // ì¢…ì„± ë¬¸ì ì¶”ì¶œ
 					if( finalCode == -1 )
 						finalCode = 0;
 				}
 			}
 		
-			// ÃßÃâÇÑ ÃÊ¼º ¹®ÀÚ ÄÚµå, Áß¼º ¹®ÀÚ ÄÚµå, Á¾¼º ¹®ÀÚ ÄÚµå¸¦ ÇÕÇÑ ÈÄ º¯È¯ÇÏ¿© ½ºÆ®¸µ¹öÆÛ¿¡ ³Ñ±è
+			// ì¶”ì¶œí•œ ì´ˆì„± ë¬¸ì ì½”ë“œ, ì¤‘ì„± ë¬¸ì ì½”ë“œ, ì¢…ì„± ë¬¸ì ì½”ë“œë¥¼ í•©í•œ í›„ ë³€í™˜í•˜ì—¬ ìŠ¤íŠ¸ë§ë²„í¼ì— ë„˜ê¹€
 			sb.append((char)(0xAC00 + initialCode + medialCode + finalCode));
 		}
 		
@@ -124,17 +123,17 @@ public class KorConvertUtil {
 	}
 	 
 	 /** 
-	 * ÇØ´ç ¹®ÀÚ¿¡ µû¸¥ ÄÚµå¸¦ ÃßÃâÇÑ´Ù. 
-	 * @param type ÃÊ¼º : chosung, Áß¼º : jungsung, Á¾¼º : jongsung ±¸ºĞ 
-	 * @param char ÇØ´ç ¹®ÀÚ 
+	 * í•´ë‹¹ ë¬¸ìì— ë”°ë¥¸ ì½”ë“œë¥¼ ì¶”ì¶œí•œë‹¤. 
+	 * @param type ì´ˆì„± : chosung, ì¤‘ì„± : jungsung, ì¢…ì„± : jongsung êµ¬ë¶„ 
+	 * @param char í•´ë‹¹ ë¬¸ì 
 	 */ 
 	 private static int getCode(CodeType type, String c)
 	 {
-		 // ÃÊ¼º
+		 // ì´ˆì„±
 		 String init = "rRseEfaqQtTdwWczxvg";
-		 // Áß¼º
+		 // ì¤‘ì„±
 		 String[] mid = {"k","o","i","O","j","p","u","P","h","hk", "ho","hl","y","n","nj","np", "nl", "b", "m", "ml", "l"};
-		 // Á¾¼º
+		 // ì¢…ì„±
 		 String[] fin = {"r", "R", "rt", "s", "sw", "sg", "e", "f", "fr", "fa", "fq", "ft", "fx", "fv", "fg", "a", "q", "qt", "t", "T", "d", "w", "c", "z", "x", "v", "g"};
 		
 		 switch(type)
@@ -167,14 +166,14 @@ public class KorConvertUtil {
 				 }
 				 break;
 			 default:
-				 System.out.println("Àß¸øµÈ Å¸ÀÔ ÀÔ´Ï´Ù");
+				 System.out.println("ì˜ëª»ëœ íƒ€ì… ì…ë‹ˆë‹¤");
 		 }
 		
 		return -1;
 	 }
 	 
-	 // ÇÑ ÀÚ·Î µÈ Áß¼º°ªÀ» ¸®ÅÏÇÑ´Ù
-	 // ÀÎµ¦½º¸¦ ¹ş¾î³´´Ù¸é -1À» ¸®ÅÏ
+	 // í•œ ìë¡œ ëœ ì¤‘ì„±ê°’ì„ ë¦¬í„´í•œë‹¤
+	 // ì¸ë±ìŠ¤ë¥¼ ë²—ì–´ë‚«ë‹¤ë©´ -1ì„ ë¦¬í„´
 	 private static int getSingleMedial(int i, String eng)
 	 {
 		 if((i+1) <= eng.length())
@@ -186,8 +185,8 @@ public class KorConvertUtil {
 		 }
 	 }
 	 
-	 // µÎ ÀÚ·Î µÈ Áß¼ºÀ» Ã¼Å©ÇÏ°í, ÀÖ´Ù¸é °ªÀ» ¸®ÅÏÇÑ´Ù.
-	 // ¾øÀ¸¸é ¸®ÅÏ°ªÀº -1
+	 // ë‘ ìë¡œ ëœ ì¤‘ì„±ì„ ì²´í¬í•˜ê³ , ìˆë‹¤ë©´ ê°’ì„ ë¦¬í„´í•œë‹¤.
+	 // ì—†ìœ¼ë©´ ë¦¬í„´ê°’ì€ -1
 	 private static int getDoubleMedial(int i, String eng)
 	 {
 		 int result;
@@ -206,8 +205,8 @@ public class KorConvertUtil {
 		 }
 	 }
 	 
-	 // ÇÑ ÀÚ·ÎµÈ Á¾¼º°ªÀ» ¸®ÅÏÇÑ´Ù
-	 // ÀÎµ¦½º¸¦ ¹ş¾î³´´Ù¸é -1À» ¸®ÅÏ
+	 // í•œ ìë¡œëœ ì¢…ì„±ê°’ì„ ë¦¬í„´í•œë‹¤
+	 // ì¸ë±ìŠ¤ë¥¼ ë²—ì–´ë‚«ë‹¤ë©´ -1ì„ ë¦¬í„´
 	 private static int getSingleFinal(int i, String eng)
 	 {
 		 if((i+1) <= eng.length()){
@@ -217,8 +216,8 @@ public class KorConvertUtil {
 		 }
 	}
 	 
-	 // µÎ ÀÚ·ÎµÈ Á¾¼ºÀ» Ã¼Å©ÇÏ°í, ÀÖ´Ù¸é °ªÀ» ¸®ÅÏÇÑ´Ù.
-	 // ¾øÀ¸¸é ¸®ÅÏ°ªÀº -1
+	 // ë‘ ìë¡œëœ ì¢…ì„±ì„ ì²´í¬í•˜ê³ , ìˆë‹¤ë©´ ê°’ì„ ë¦¬í„´í•œë‹¤.
+	 // ì—†ìœ¼ë©´ ë¦¬í„´ê°’ì€ -1
 	 private static int getDoubleFinal(int i, String eng)
 	 {
 		 if((i+2) > eng.length()){

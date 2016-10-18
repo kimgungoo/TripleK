@@ -12,13 +12,15 @@ public class LangConverter {
 	private final static int WORD_TYPE_CHAR = 0;
 	
 	/**
-	 * ¿µ¹®Àº ÇÑ±Û·Î, ÇÑ±ÛÀº ¿µ¹®À¸·Î ¹®Àå ÀüÃ¼ º¯È¯
+	 * ì˜ë¬¸ì€ í•œê¸€ë¡œ, í•œê¸€ì€ ì˜ë¬¸ìœ¼ë¡œ ë¬¸ìž¥ ì „ì²´ ë³€í™˜
 	 * @param source
 	 * @return
 	 */
 	public String transLang(String source)
 	{		
-		if (source == null)	return null;		
+		if (source == null)	{
+			return null;		
+		}
 		
 		StringBuffer result = new StringBuffer();		
 		int i, type = 0, before = 0, p = 0;
@@ -48,8 +50,8 @@ public class LangConverter {
 	}
 	
 	/**
-	 * ´Ü¾î°¡ ¾Æ´Ï¶ó ¹®ÀåÀÏ °æ¿ì, 
-	 * È­ÀÌ½ºÆ®ÆäÀÌ½º¸¦ ±¸ºÐÇÏ¿© °¢°¢ÀÇ ¿ä¼ÒµéÀ» ÇÏ³ªÀÇ ¾ð¾î·Î ÅëÀÏ½ÃÅ²´Ù.
+	 * ë‹¨ì–´ê°€ ì•„ë‹ˆë¼ ë¬¸ìž¥ì¼ ê²½ìš°, 
+	 * í™”ì´ìŠ¤íŠ¸íŽ˜ì´ìŠ¤ë¥¼ êµ¬ë¶„í•˜ì—¬ ê°ê°ì˜ ìš”ì†Œë“¤ì„ í•˜ë‚˜ì˜ ì–¸ì–´ë¡œ í†µì¼ì‹œí‚¨ë‹¤.
 	 * @param transType
 	 * @param source
 	 * @return
@@ -73,8 +75,8 @@ public class LangConverter {
 			
 			if (transType != type) {
 				/*
-				 * transTypeÀÌ ¾Æ´Ï¶ó typeÀ» Ã¹¹øÂ° ¾Æ±Ô¸ÕÆ®·Î ³Ö¾î¾ß ÇÑ´Ù.
-				 * Å¸°ÙÀÇ ÀÇ¹Ì°¡ ¾Æ´Ï¶ó ÇöÀç Å¸ÀÔÀÇ ÀÇ¹Ì
+				 * transTypeì´ ì•„ë‹ˆë¼ typeì„ ì²«ë²ˆì§¸ ì•„ê·œë¨¼íŠ¸ë¡œ ë„£ì–´ì•¼ í•œë‹¤.
+				 * íƒ€ê²Ÿì˜ ì˜ë¯¸ê°€ ì•„ë‹ˆë¼ í˜„ìž¬ íƒ€ìž…ì˜ ì˜ë¯¸
 				 */
 				result.append(transTerm(type, term));
 			}
@@ -89,7 +91,7 @@ public class LangConverter {
 	}
 	
 	/**
-	 * ±ÛÀÇ ¾ð¾îÅ¸ÀÔ Ã¼Å©
+	 * ê¸€ì˜ ì–¸ì–´íƒ€ìž… ì²´í¬
 	 * @param str
 	 * @return
 	 */
@@ -132,7 +134,7 @@ public class LangConverter {
 	}
 	
 	/**
-	 * ¾ð¾î º¯È¯
+	 * ì–¸ì–´ ë³€í™˜
 	 * @param currentType
 	 * @param value
 	 * @return
@@ -152,7 +154,7 @@ public class LangConverter {
 	
 	public static void main(String[] a)
 	{
-//		char[] temp = {'¤¡', '¸¾', 'a', 'K'};
+//		char[] temp = {'ã„±', 'ë§˜', 'a', 'K'};
 //		
 //		System.out.println(Character.getType(temp[0]));
 //		System.out.println(Character.getType(temp[1]));
@@ -165,12 +167,12 @@ public class LangConverter {
 //		
 //		System.out.println(TransUtil.toKOR("qer")); 58.181.33.164/users/yslee/saltlux_custom/src/com/saltlux/in2/autodic
 		
-		System.out.println(wa.transLang("xp!!tm^^xm12 ÇöÀç ¿Âµµ´Â tjqTl 1eh dlqslek. dOrlfmf GOtTMQSLEK. bb"));
+		System.out.println(wa.transLang("xp!!tm^^xm12 í˜„ìž¬ ì˜¨ë„ëŠ” tjqTl 1eh dlqslek. dOrlfmf GOtTMQSLEK. bb"));
 		
-		System.out.println(wa.transLang(LangConverter.WORD_TYPE_ENG, "™“ ¤Ó¤À¤±¤· ¤À¤© ¤¡¤Á¤Ì¤¾¤¤"));
+		System.out.println(wa.transLang(LangConverter.WORD_TYPE_ENG, "Â™Â“ ã…£ã…ã…ã…‡ ã…ã„¹ ã„±ã…‘ã…œã…Žã„´"));
 		System.out.println(wa.transLang(LangConverter.WORD_TYPE_KOR, "QKSWLDML WPDHKD"));
 		
-		//¼­ÇØ¾ÆÆÄÆ® 1ekswl 101gh   ====> ¿À·ù´Â ¾Æ´ÑµíÇÔ.
+		//ì„œí•´ì•„íŒŒíŠ¸ 1ekswl 101gh   ====> ì˜¤ë¥˜ëŠ” ì•„ë‹Œë“¯í•¨.
 		System.out.println(wa.transLang(LangConverter.WORD_TYPE_KOR, "tjgodkvkxm 1ekswl 101gh"));
 	}
 }
