@@ -167,6 +167,7 @@ public class LangConverter {
 		
 		System.out.println(wa.transLang(LangConverter.WORD_TYPE_ENG, " ㅣㅐㅁㅇ ㅐㄹ ㄱㅑㅜㅎㄴ"));
 		System.out.println(wa.transLang(LangConverter.WORD_TYPE_KOR, "QKSWLDML WPDHKD"));
+		System.out.println(wa.transLang(LangConverter.WORD_TYPE_KOR, "wjdgPtjs qkqh"));
 		
 		//서해아파트 1ekswl 101gh   ====> 오류는 아닌듯함.
 		System.out.println(wa.transLang(LangConverter.WORD_TYPE_KOR, "tjgodkvkxm 1ekswl 101gh"));
