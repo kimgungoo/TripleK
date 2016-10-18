@@ -11,6 +11,7 @@ public class LangConverter {
 	private final static int WORD_TYPE_MIXED = -1;
 	private final static int WORD_TYPE_CHAR = 0;
 	
+	
 	/**
 	 * 영문은 한글로, 한글은 영문으로 문장 전체 변환
 	 * @param source
@@ -44,6 +45,7 @@ public class LangConverter {
 		
 		return result.toString();
 	}
+	
 	
 	/**
 	 * 단어가 아니라 문장일 경우, 
@@ -84,6 +86,7 @@ public class LangConverter {
 		
 		return result.toString();
 	}
+	
 	
 	/**
 	 * 글의 언어타입 체크
@@ -126,6 +129,7 @@ public class LangConverter {
 		}
 	}
 	
+	
 	/**
 	 * 언어 변환
 	 * @param currentType
@@ -143,6 +147,7 @@ public class LangConverter {
 			return value;
 		}
 	}
+	
 	
 	public static void main(String[] a) {
 //		char[] temp = {'ㄱ', '맘', 'a', 'K'};
