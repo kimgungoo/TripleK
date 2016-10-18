@@ -96,7 +96,7 @@ public class KorConvertUtil {
 				}
 				else {
 					i++;
-				}
+				} 
 			}
 			else {// 코드 값이 없을 경우 ,
 				tempMedialCode = getSingleMedial(i+1, eng);// 그 다음의 중성 문자에 대한 코드 추출. 
